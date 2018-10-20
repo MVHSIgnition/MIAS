@@ -13,7 +13,7 @@
    },
    "content_scripts": [{
      "css": ["styles.css"],
-     "js": ["content.js"],
+     "js": ["content.js", "eventPage.js", "popup.js", "browser.js", "getTabSource.js"],
      "matches": ["<all_urls>"]
    }],
    "permissions": [ "alarms", "storage", "tabs" ],
