@@ -1,8 +1,20 @@
+var script = document.createElement('script');
+script.src = '//code.jquery.com/jquery-1.11.0.min.js';
+document.getElementsByTagName('head')[0].appendChild(script);
+
 var div = document.createElement('div');
 var spanOne = document.createElement('span');
 var spanTwo = document.createElement('span');
 var spanThree = document.createElement('span');
+var spanFour = document.createElement('span');
+var img = document.createElement('img');
+img.setAttribute("src", "arrow.png");
+img.setAttribute("onclick", "showDiv()");
+img.setAttribute("style", "position: fixed; top: 50%;");
+div.appendChild(img);
 
+div.id="main-div";
+div.setAttribute("style", "right: -200px")
 div.classList.add('mias_container');
 
 if (document.body.firstChild){
@@ -12,7 +24,6 @@ else{
     document.body.appendChild(div);
 }
 
-<<<<<<< HEAD
 var getHostName = function (url) {
     try {
       return new URL(url).hostname.match(/(www[0-9]?\.)?(.+)/i)[2];
@@ -97,14 +108,11 @@ getTabSource(window.location.href, function(source, bias) {
     div.innerHTML += '<h2>' + bias.name + '</h2>';
 });
 
-div.innerHTML += 'Article bias: ';
-=======
 spanOne.setAttribute("style", "font-weight: bold;");
 spanTwo.setAttribute("style", "font-weight: bold;");
 spanOne.innerHTML += 'Article bias: ';
 div.appendChild(spanOne);
 
->>>>>>> 79060550621beab828433a0bb8c3c61d4bc77737
 xhr = new XMLHttpRequest();
 xhr2 = new XMLHttpRequest();
 var url = "http://localhost:8080/fakebox/check";
@@ -123,18 +131,22 @@ xhr.onreadystatechange = function () {
                 console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title));
 
                 spanThree.innerHTML += JSON.stringify(json2.content.decision);
-                if(parseFloat(JSON.stringify(json2.content.score))<0.25) {
-                	spanThree.setAttribute("style", "color: green");
-                	console.log(spanThree.classList);
-                } else if(parseFloat(JSON.stringify(json2.content.score))>0.7) {
-                	spanThree.setAttribute("style", "color: green");
-                } else {
-                	spanThree.setAttribute("style", "color: yellow");
-                }
                 div.appendChild(spanThree);
                 spanTwo.innerHTML += " Score: ";
                 div.appendChild(spanTwo);
-                div.innerHTML += Math.round(parseFloat(JSON.stringify(json2.content.score))*100)/100;
+                spanFour.innerHTML += Math.round(parseFloat(JSON.stringify(json2.content.score))*100)/100;
+                div.appendChild(spanFour);
+                if(parseFloat(JSON.stringify(json2.content.score))<0.25) {
+                	spanThree.setAttribute("style", "color: red");
+                	panThree.setAttribute("style", "color: red");
+                	console.log(spanThree.classList);
+                } else if(parseFloat(JSON.stringify(json2.content.score))>0.7) {
+                	spanThree.setAttribute("style", "color: green");
+                	spanThree.setAttribute("style", "color: green");
+                } else {
+                	spanThree.setAttribute("style", "color: yellow");
+                	spanThree.setAttribute("style", "color: yellow ");
+                }
             }
         }
         var data = JSON.stringify({'url':window.location.href,'title': json.title,'content': json.body});
@@ -142,3 +154,7 @@ xhr.onreadystatechange = function () {
     }
 }
 xhr.send();
+
+function showDiv() {	
+	$("#main-div").animate({right: '0px'});
+}
