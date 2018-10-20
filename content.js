@@ -36,7 +36,7 @@ xhr.onreadystatechange = function () {
                 console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title));
 
                 spanThree.innerHTML += JSON.stringify(json2.content.decision);
-                if(Double.parseDouble(JSON.stringify(json2.content.score))<0.25) {
+                if(parseFloat(JSON.stringify(json2.content.score))<0.25) {
                 	spanThree.classList.add('high');
                 } else if(Double.parseDouble(JSON.stringify(json2.content.score))>0.7) {
                 	spanThree.classList.add('low');
