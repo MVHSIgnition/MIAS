@@ -3,9 +3,10 @@
     "version": "1.0",
     "description": "Media bias detector",
     "manifest_version": 2,
-    "page_action": {
-      "default_popup": "popup.html"
+    "browser_action": {
+      	"default_popup": "popup.html"
     },
+<<<<<<< HEAD
 <<<<<<< HEAD
     "permissions": ["activeTab"]
 		"icons": { "16": "icon16.png",
@@ -13,6 +14,13 @@
           "128": "icon128.png" },
 }
 =======
+=======
+    "content_scripts": [{
+        "css": ["styles.css"],
+        "js": ["content.js"],
+        "matches": ["<all_urls>"]
+    }],
+>>>>>>> 703530e4c88524a9f845046f3d0251fb11503d4d
     "background": {
       "scripts": ["background.js"],
       "persistent": false
