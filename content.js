@@ -96,13 +96,12 @@ getTabSource(window.location.href, function(source, bias) {
     console.log(source, bias);
     if (source) {
       sourceDiv.innerHTML = '<p>Source: <a href="' + source.homepage + '">' + source.name + '</a><br/>Bias: ' + bias.name + '</p>';
-      div.appendChild(sourceDiv);
     }
 
     spanOne.setAttribute("style", "font-weight: bold;");
     spanTwo.setAttribute("style", "font-weight: bold;");
     spanOne.innerHTML += 'Article bias: ';
-    div.appendChild(spanOne);
+    
 
     xhr = new XMLHttpRequest();
     xhr2 = new XMLHttpRequest();
@@ -136,9 +135,8 @@ getTabSource(window.location.href, function(source, bias) {
                       spanThree.setAttribute("style", "color: yellow");
                     }
                     console.log(spanThree.classList);
-                    div.appendChild(spanThree);
                     spanTwo.innerHTML += " Score: ";
-                    div.appendChild(spanTwo);
+                    
                     div.innerHTML += Math.round(parseFloat(JSON.stringify(json2.content.score))*100)/100;
                 }
             }
@@ -147,4 +145,9 @@ getTabSource(window.location.href, function(source, bias) {
         }
     }
     xhr.send();
+
+    div.appendChild(sourceDiv);
+    div.appendChild(spanOne);
+    div.appendChild(spanThree);
+    div.appendChild(spanTwo);
 });
