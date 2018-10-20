@@ -1,16 +1,3 @@
-var div = document.createElement('div');
-
-
-div.classList.add('mias_container');
-
-if (document.body.firstChild){
-    document.body.insertBefore(div, document.body.firstChild);
-}
-else{
-    document.body.appendChild(div);
-}
-
-div.innerHTML += 'Bias: ';
 xhr = new XMLHttpRequest();
 xhr2 = new XMLHttpRequest();
 var url = "http://localhost:8080/fakebox/check";
@@ -26,8 +13,7 @@ xhr.onreadystatechange = function () {
         xhr2.onreadystatechange = function () {
             if (xhr2.readyState == 4 && xhr2.status == 200) {
                 var json2 = JSON.parse(xhr2.responseText);
-                console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title));
-                div.innterHTML += json2.content.decision + " Score: " + json2.content.score;
+                console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title))
             }
         }
         var data = JSON.stringify({'url':window.location.href,'title': json.title,'content': json.body});
