@@ -1,0 +1,14 @@
+#mias_container {
+    position: fixed;
+	float: none;
+	overflow: auto;
+	clear: both;
+	bottom: 0;
+	padding: 5px;
+	margin: 5px;
+	border: 1px solid transparent;
+	background-color: #000000;
+	color: #ffffff;
+	opacity: .75;
+	z-index: 1000;
+}

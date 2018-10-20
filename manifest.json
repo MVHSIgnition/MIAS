@@ -6,5 +6,17 @@
     "browser_action": {
       	"default_popup": "popup.html"
     },
+    "page_action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [{
+        "css": ["styles.css"],
+        "js": ["content.js"],
+        "matches": ["<all_urls>"]
+    }],
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
     "permissions": ["activeTab", "declarativeContent", "storage"]
 }
