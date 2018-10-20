@@ -1,4 +1,5 @@
 var div = document.createElement('div');
+var sourceDiv = document.createElement('div');
 var spanOne = document.createElement('span');
 var spanTwo = document.createElement('span');
 var spanThree = document.createElement('span');
@@ -93,7 +94,10 @@ var getTabSource = function (url, cb) {
 
 getTabSource(window.location.href, function(source, bias) {
     console.log(source, bias);
-    div.innerHTML += '<h2>' + bias.name + '</h2>';
+    if (source) {
+      sourceDiv.innerHTML += '<p>Source: <a href="' + source.homepage + '">' + source.name + '</a><br/>Bias: ' + bias.name + '</p>';
+      div.appendChild(sourceDiv);
+    }
 });
 
 spanOne.setAttribute("style", "font-weight: bold;");
