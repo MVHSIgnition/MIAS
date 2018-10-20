@@ -16,5 +16,3 @@ changeColor.onclick = function(element) {
         {code: 'document.body.style.backgroundColor = "' + color + '";'});
   });
 };
-
-chrome.browserAction.onClicked.addListener(function(tab) { alert('icon clicked')});
