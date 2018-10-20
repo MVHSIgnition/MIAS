@@ -7,8 +7,8 @@ var spanOne = document.createElement('span');
 var spanTwo = document.createElement('span');
 var spanThree = document.createElement('span');
 var spanFour = document.createElement('span');
-var img = document.createElement('img');
-img.setAttribute('src', 'arrow.png');
+var drag = document.createElement('div');
+
 document.getElementByTagName("body")[0].appendChild(img);
 img.setAttribute('style', 'position: fixed; right: 0px; top: 50%;');
 
