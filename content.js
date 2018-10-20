@@ -12,7 +12,6 @@ else{
     document.body.appendChild(div);
 }
 
-<<<<<<< HEAD
 var getHostName = function (url) {
     try {
       return new URL(url).hostname.match(/(www[0-9]?\.)?(.+)/i)[2];
@@ -97,14 +96,11 @@ getTabSource(window.location.href, function(source, bias) {
     div.innerHTML += '<h2>' + bias.name + '</h2>';
 });
 
-div.innerHTML += 'Article bias: ';
-=======
 spanOne.setAttribute("style", "font-weight: bold;");
 spanTwo.setAttribute("style", "font-weight: bold;");
 spanOne.innerHTML += 'Article bias: ';
 div.appendChild(spanOne);
 
->>>>>>> 79060550621beab828433a0bb8c3c61d4bc77737
 xhr = new XMLHttpRequest();
 xhr2 = new XMLHttpRequest();
 var url = "http://localhost:8080/fakebox/check";
