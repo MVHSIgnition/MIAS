@@ -1,8 +1,16 @@
+var script = document.createElement('script');
+script.src = '//code.jquery.com/jquery-1.11.0.min.js';
+document.getElementsByTagName('head')[0].appendChild(script);
+
 var div = document.createElement('div');
-var sourceDiv = document.createElement('div');
 var spanOne = document.createElement('span');
 var spanTwo = document.createElement('span');
 var spanThree = document.createElement('span');
+var spanFour = document.createElement('span');
+var drag = document.createElement('div');
+
+document.getElementByTagName("body")[0].appendChild(img);
+img.setAttribute('style', 'position: fixed; right: 0px; top: 50%;');
 
 div.classList.add('mias_container');
 
@@ -20,7 +28,7 @@ var getHostName = function (url) {
       return null; // Invalid URL
     }
 }
-
+  
 var getPath = function (url) {
     try {
       return new URL(url).pathname;
@@ -30,14 +38,14 @@ var getPath = function (url) {
 }
 
 window.browser = chrome;
-
+  
 var getTabSource = function (url, cb) {
     browser.storage.local.get(['biases', 'sources'], function (items) {
       var hostName = getHostName(url);
       var path = getPath(url);
       var domainSources;
       var source;
-
+  
       var getDomainSource = function (domain) {
         domainSources = items.sources[domain];
         // check if value is an array or object
@@ -79,10 +87,10 @@ var getTabSource = function (url, cb) {
         }
         return source;
       }
-
+  
       if (items.biases !== undefined && items.sources !== undefined) {
         source = getDomainSource(hostName);
-
+  
         if (source !== undefined) {
           var bias = items.biases[source.bias];
         }
@@ -90,14 +98,11 @@ var getTabSource = function (url, cb) {
       cb(source, bias);
     });
 };
-
+  
 
 getTabSource(window.location.href, function(source, bias) {
     console.log(source, bias);
-    if (source) {
-      sourceDiv.innerHTML += '<p>Source: <a href="' + source.homepage + '">' + source.name + '</a><br/>Bias: ' + bias.name + '</p>';
-      div.appendChild(sourceDiv);
-    }
+    div.innerHTML += '<h2>' + bias.name + '</h2>';
 });
 
 spanOne.setAttribute("style", "font-weight: bold;");
@@ -107,7 +112,6 @@ div.appendChild(spanOne);
 
 xhr = new XMLHttpRequest();
 xhr2 = new XMLHttpRequest();
-xhr3 = new XMLHttpRequest();
 var url = "http://localhost:8080/fakebox/check";
 
 xhr.open("GET", 'https://document-parser-api.lateral.io/?url='+window.location.href, true);
@@ -121,20 +125,29 @@ xhr.onreadystatechange = function () {
         xhr2.onreadystatechange = function () {
             if (xhr2.readyState == 4 && xhr2.status == 200) {
                 var json2 = JSON.parse(xhr2.responseText);
+<<<<<<< HEAD
                 console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title) + "\n\n" + JSON.stringify(json2.keywords)+JSON.stringify(json2.domain.category));
+=======
+                console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title));
+
+>>>>>>> 11730cce1b6f25d2a2dba4695fbed63969fe2063
                 spanThree.innerHTML += JSON.stringify(json2.content.decision);
-                if(parseFloat(JSON.stringify(json2.content.score))<0.25) {
-                	spanThree.setAttribute("style", "color: green");
-                } else if(parseFloat(JSON.stringify(json2.content.score))>0.7) {
-                	spanThree.setAttribute("style", "color: green");
-                } else {
-                	spanThree.setAttribute("style", "color: yellow");
-                }
-                console.log(spanThree.classList);
                 div.appendChild(spanThree);
                 spanTwo.innerHTML += " Score: ";
                 div.appendChild(spanTwo);
-                div.innerHTML += Math.round(parseFloat(JSON.stringify(json2.content.score))*100)/100;
+                spanFour.innerHTML += Math.round(parseFloat(JSON.stringify(json2.content.score))*100)/100;
+                div.appendChild(spanFour);
+                if(parseFloat(JSON.stringify(json2.content.score))<0.25) {
+                	spanThree.setAttribute("style", "color: red");
+                	panThree.setAttribute("style", "color: red");
+                	console.log(spanThree.classList);
+                } else if(parseFloat(JSON.stringify(json2.content.score))>0.7) {
+                	spanThree.setAttribute("style", "color: green");
+                	spanThree.setAttribute("style", "color: green");
+                } else {
+                	spanThree.setAttribute("style", "color: yellow");
+                	spanThree.setAttribute("style", "color: yellow ");
+                }
             }
         }
         var data = JSON.stringify({'url':window.location.href,'title': json.title,'content': json.body});
