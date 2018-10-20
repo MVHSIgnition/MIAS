@@ -8,13 +8,10 @@ var spanTwo = document.createElement('span');
 var spanThree = document.createElement('span');
 var spanFour = document.createElement('span');
 var img = document.createElement('img');
-img.setAttribute("src", "arrow.png");
-img.setAttribute("onclick", "showDiv()");
-img.setAttribute("style", "position: fixed; top: 50%;");
-div.appendChild(img);
+img.setAttribute('src', 'arrow.png');
+document.getElementByTagName("body")[0].appendChild(img);
+img.setAttribute('style', 'position: fixed; right: 0px; top: 50%;');
 
-div.id="main-div";
-div.setAttribute("style", "right: -200px")
 div.classList.add('mias_container');
 
 if (document.body.firstChild){
@@ -154,7 +151,3 @@ xhr.onreadystatechange = function () {
     }
 }
 xhr.send();
-
-function showDiv() {	
-	$("#main-div").animate({right: '0px'});
-}
