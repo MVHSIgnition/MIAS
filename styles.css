@@ -13,3 +13,15 @@
 	opacity: .75;
 	z-index: 1000;
 }
+
+.low {
+	font-color: green;
+}
+
+.med {
+	font-color: yellow;
+}
+
+.high {
+	font-color: red;
+}
