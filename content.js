@@ -121,7 +121,7 @@ xhr.onreadystatechange = function () {
         xhr2.onreadystatechange = function () {
             if (xhr2.readyState == 4 && xhr2.status == 200) {
                 var json2 = JSON.parse(xhr2.responseText);
-                console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title) + "\n\n" + JSON.stringify(json2.keywords)+JSON.stringify(json2.domain.category));    
+                console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title) + "\n\n" + JSON.stringify(json2.keywords)+JSON.stringify(json2.domain.category));
                 spanThree.innerHTML += JSON.stringify(json2.content.decision);
                 if(parseFloat(JSON.stringify(json2.content.score))<0.25) {
                 	spanThree.setAttribute("style", "color: green");
