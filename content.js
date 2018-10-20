@@ -20,7 +20,7 @@ var getHostName = function (url) {
       return null; // Invalid URL
     }
 }
-  
+
 var getPath = function (url) {
     try {
       return new URL(url).pathname;
@@ -30,14 +30,14 @@ var getPath = function (url) {
 }
 
 window.browser = chrome;
-  
+
 var getTabSource = function (url, cb) {
     browser.storage.local.get(['biases', 'sources'], function (items) {
       var hostName = getHostName(url);
       var path = getPath(url);
       var domainSources;
       var source;
-  
+
       var getDomainSource = function (domain) {
         domainSources = items.sources[domain];
         // check if value is an array or object
@@ -79,10 +79,10 @@ var getTabSource = function (url, cb) {
         }
         return source;
       }
-  
+
       if (items.biases !== undefined && items.sources !== undefined) {
         source = getDomainSource(hostName);
-  
+
         if (source !== undefined) {
           var bias = items.biases[source.bias];
         }
@@ -90,7 +90,7 @@ var getTabSource = function (url, cb) {
       cb(source, bias);
     });
 };
-  
+
 
 getTabSource(window.location.href, function(source, bias) {
     console.log(source, bias);
@@ -107,6 +107,7 @@ div.appendChild(spanOne);
 
 xhr = new XMLHttpRequest();
 xhr2 = new XMLHttpRequest();
+xhr3 = new XMLHttpRequest();
 var url = "http://localhost:8080/fakebox/check";
 
 xhr.open("GET", 'https://document-parser-api.lateral.io/?url='+window.location.href, true);
@@ -120,17 +121,16 @@ xhr.onreadystatechange = function () {
         xhr2.onreadystatechange = function () {
             if (xhr2.readyState == 4 && xhr2.status == 200) {
                 var json2 = JSON.parse(xhr2.responseText);
-                console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title));
-
+                console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title) + "\n\n" + JSON.stringify(json2.keywords)+JSON.stringify(json2.domain.category));    
                 spanThree.innerHTML += JSON.stringify(json2.content.decision);
                 if(parseFloat(JSON.stringify(json2.content.score))<0.25) {
                 	spanThree.setAttribute("style", "color: green");
-                	console.log(spanThree.classList);
                 } else if(parseFloat(JSON.stringify(json2.content.score))>0.7) {
                 	spanThree.setAttribute("style", "color: green");
                 } else {
                 	spanThree.setAttribute("style", "color: yellow");
                 }
+                console.log(spanThree.classList);
                 div.appendChild(spanThree);
                 spanTwo.innerHTML += " Score: ";
                 div.appendChild(spanTwo);
