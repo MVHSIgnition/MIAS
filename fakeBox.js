@@ -14,8 +14,8 @@ xhr.onreadystatechange = function () {
         xhr2.onreadystatechange = function () {
             if (xhr2.readyState == 4 && xhr2.status == 200) {
                 var json2 = JSON.parse(xhr2.responseText);
-                console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title) + "\n\n" + JSON.stringify(json2.keywords));
-                //xhr3.open("GET", "https://newsapi.org/v2/everything?q="json2."&from="JSON.stringify(json2.date)"&sortBy=publishedAt&apiKey=b86805fe9ad8438696f50c72993d0fd8")
+                console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title) + "\n\n" + JSON.stringify(json2.keywords)+ JSON.stringify(json2.category));
+                //xhr3.open("GET", "https://newsapi.org/v2/everything?q="json2.keyword"&from="JSON.stringify(json2.date)"&sortBy=publishedAt&apiKey=b86805fe9ad8438696f50c72993d0fd8")
             }
         }
         var data = JSON.stringify({'url':window.location.href,'title': json.title,'content': json.body});
