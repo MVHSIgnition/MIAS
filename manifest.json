@@ -1,0 +1,10 @@
+{
+	"name": "Mias",
+    "version": "1.0",
+    "description": "Media bias detector",
+    "manifest_version": 2,
+    "browser_action": {
+    	"default_popup": "popup.html"
+    },
+    "permissions": ["activeTab"]
+}
