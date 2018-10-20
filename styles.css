@@ -1,6 +1,7 @@
-#mias_container {
+.mias_container {
     position: fixed;
 	float: none;
+	right:0;
 	overflow: auto;
 	clear: both;
 	bottom: 0;
