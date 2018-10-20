@@ -1,5 +1,7 @@
 var div = document.createElement('div');
-
+var spanOne = document.createElement('span');
+var spanTwo = document.createElement('span');
+var spanThree = document.createElement('span');
 
 div.classList.add('mias_container');
 
@@ -10,6 +12,7 @@ else{
     document.body.appendChild(div);
 }
 
+<<<<<<< HEAD
 var getHostName = function (url) {
     try {
       return new URL(url).hostname.match(/(www[0-9]?\.)?(.+)/i)[2];
@@ -95,6 +98,13 @@ getTabSource(window.location.href, function(source, bias) {
 });
 
 div.innerHTML += 'Article bias: ';
+=======
+spanOne.setAttribute("style", "font-weight: bold;");
+spanTwo.setAttribute("style", "font-weight: bold;");
+spanOne.innerHTML += 'Article bias: ';
+div.appendChild(spanOne);
+
+>>>>>>> 79060550621beab828433a0bb8c3c61d4bc77737
 xhr = new XMLHttpRequest();
 xhr2 = new XMLHttpRequest();
 var url = "http://localhost:8080/fakebox/check";
@@ -111,7 +121,20 @@ xhr.onreadystatechange = function () {
             if (xhr2.readyState == 4 && xhr2.status == 200) {
                 var json2 = JSON.parse(xhr2.responseText);
                 console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title));
-                div.innerHTML += JSON.stringify(json2.content.decision) + " Score (0 being most biased, 1 being most impartial): " + JSON.stringify(json2.content.score);
+
+                spanThree.innerHTML += JSON.stringify(json2.content.decision);
+                if(parseFloat(JSON.stringify(json2.content.score))<0.25) {
+                	spanThree.classList.add('high');
+                	console.log(spanThree.classList);
+                } else if(parseFloat(JSON.stringify(json2.content.score))>0.7) {
+                	spanThree.classList.add('low');
+                } else {
+                	spanThree.classList.add('med');
+                }
+                div.appendChild(spanThree);
+                spanTwo.innerHTML += " Score: ";
+                div.appendChild(spanTwo);
+                div.innerHTML += Math.round(parseFloat(JSON.stringify(json2.content.score))*100)/100;
             }
         }
         var data = JSON.stringify({'url':window.location.href,'title': json.title,'content': json.body});
