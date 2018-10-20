@@ -10,7 +10,7 @@ else{
     document.body.appendChild(div);
 }
 
-div.innerHTML += 'Bias: ';
+div.innerHTML += 'Article bias: ';
 xhr = new XMLHttpRequest();
 xhr2 = new XMLHttpRequest();
 var url = "http://localhost:8080/fakebox/check";
@@ -27,7 +27,7 @@ xhr.onreadystatechange = function () {
             if (xhr2.readyState == 4 && xhr2.status == 200) {
                 var json2 = JSON.parse(xhr2.responseText);
                 console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title));
-                div.innterHTML += json2.content.decision + " Score: " + json2.content.score;
+                div.innerHTML += JSON.stringify(json2.content.decision) + " Score (0 being most biased, 1 being most impartial): " + JSON.stringify(json2.content.score);
             }
         }
         var data = JSON.stringify({'url':window.location.href,'title': json.title,'content': json.body});
