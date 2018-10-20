@@ -3,13 +3,17 @@
     "version": "1.0",
     "description": "Media bias detector",
     "manifest_version": 2,
-    "browser_action": {
-    	"default_popup": "popup.html"
+    "page_action": {
+      "default_popup": "popup.html"
     },
     "content_scripts": [{
         "css": ["styles.css"],
         "js": ["content.js"],
         "matches": ["<all_urls>"]
     }],
-    "permissions": ["activeTab"]
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
+    "permissions": ["activeTab", "declarativeContent", "storage"]
 }
