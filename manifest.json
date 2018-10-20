@@ -3,11 +3,20 @@
     "version": "1.0",
     "description": "Media bias detector",
     "manifest_version": 2,
-    "browser_action": {
-    	"default_popup": "popup.html"
+    "page_action": {
+      "default_popup": "popup.html"
     },
+<<<<<<< HEAD
     "permissions": ["activeTab"]
 		"icons": { "16": "icon16.png",
            "48": "icon48.png",
           "128": "icon128.png" },
 }
+=======
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
+    "permissions": ["activeTab", "declarativeContent", "storage"]
+}
+>>>>>>> 9b4ec312b4a262d3d15f8896fb9c365e3e6b2b4d
