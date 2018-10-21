@@ -12,8 +12,7 @@
 	color: #ffffff;
 	opacity: .75;
 	z-index: 1000;
-	bottom: 50%;
-	right: -200px;
+	right: 0px;
 }
 
 .low {
@@ -26,24 +25,4 @@
 
 .high {
 	font-color: red;
-}
-
-@keyframes show {
-	0%   {right:-200px;}
-    100% {right:0px;}
-}
-
-@keyframes hide {
-    0% {right:0px;}
-	100%   {right:-200px;}
-}
-
-@keyframes downDrap {
-	0%   {top:50%;}
-    100% {top:40%;}
-}
-
-@keyframes upDrag {
-    0% {top:40%;}
-	100%   {top:50%;}
 }
