@@ -51,7 +51,6 @@ var tabListener = function (tab) {
       if (source === undefined || bias === undefined) {
         browser.pageAction.hide(tab.id);
       } else {
-        path = '/icons/';
         switch (source.bias) {
           case 'left':
             path += 'left';

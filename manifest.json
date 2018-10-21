@@ -10,7 +10,7 @@
    "page_action": {
       "default_popup": "popup.html",
       "default_icon": "mainIcon.png",
-      "default_title": "MIAS"
+      "default_title": "Mias"
    },
    "content_scripts": [{
      "css": ["styles.css"],
