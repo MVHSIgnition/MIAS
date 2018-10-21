@@ -240,4 +240,5 @@ getTabSource(window.location.href, function(source, bias) {
    div.appendChild(spanOne);
    div.appendChild(spanThree);
    div.appendChild(spanTwo);
+   div.appendChild(altDiv);
 });
