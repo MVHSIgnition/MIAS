@@ -32,6 +32,7 @@ var spanTwo = document.createElement('span');
 var spanThree = document.createElement('span');
 var spanFour = document.createElement('span');
 var drag = document.createElement('div');
+var sourceDiv = document.createElement('div');
 
 
 
@@ -133,56 +134,101 @@ var getTabSource = function (url, cb) {
     });
 };
 
-
-getTabSource(window.location.href, function(source, bias) {
-    console.log(source, bias);
-    div.innerHTML += '<h2>' + bias.name + '</h2>';
-});
-
-spanOne.setAttribute("style", "font-weight: bold;");
-spanTwo.setAttribute("style", "font-weight: bold;");
-spanOne.innerHTML += 'Article bias: ';
-div.appendChild(spanOne);
-
 xhr = new XMLHttpRequest();
 xhr2 = new XMLHttpRequest();
+xhr3 = new XMLHttpRequest();
 var url = "http://localhost:8080/fakebox/check";
+console.log("hiiiiiiiiii");
 
-    xhr.open("GET", 'https://document-parser-api.lateral.io/?url='+window.location.href, true);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.setRequestHeader('subscription-key', 'e45749374a35a4f62a6408650661b28b');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var json = JSON.parse(xhr.responseText);
-            xhr2.open("POST", url, true);
-            xhr2.setRequestHeader("Content-type", "application/json");
-            xhr2.onreadystatechange = function () {
-                if (xhr2.readyState == 4 && xhr2.status == 200) {
-                    var json2 = JSON.parse(xhr2.responseText);
-                    console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title) + "\n\n" + JSON.stringify(json2.keywords)+JSON.stringify(json2.domain.category));
+getTabSource(window.location.href, function(source, bias) {
+    //console.log(source, bias);
+    if (source) {
+     sourceDiv.innerHTML = '<p>Source: <a href="' + source.homepage + '">' + source.name + '</a><br/>Bias: ' + bias.name + '</p>';
+   }
 
-                    if (sourceDiv.innerHTML == '') {
-                        sourceDiv.innerHTML = '<p>Source: ' + json2.domain.domain + '<br/></p>';
+   spanOne.setAttribute("style", "font-weight: bold;");
+   spanTwo.setAttribute("style", "font-weight: bold;");
+   spanOne.innerHTML += 'Article bias: ';
+
+
+   xhr.open("GET", 'https://document-parser-api.lateral.io/?url='+window.location.href, true);
+   xhr.setRequestHeader("Content-type", "application/json");
+   xhr.setRequestHeader('subscription-key', 'e45749374a35a4f62a6408650661b28b');
+   xhr.onreadystatechange = function () {
+       if (xhr.readyState == 4 && xhr.status == 200) {
+           var json = JSON.parse(xhr.responseText);
+           xhr2.open("POST", url, true);
+           xhr2.setRequestHeader("Content-type", "application/json");
+           xhr2.onreadystatechange = function () {
+               if (xhr2.readyState == 4 && xhr2.status == 200) {
+                   var json2 = JSON.parse(xhr2.responseText);
+                   //console.log(JSON.stringify(json2.content) + "\n\n" + JSON.stringify(json2.title) + "\n\n" + JSON.stringify(json2.keywords)+JSON.stringify(json2.domain.category));
+
+
+
+                     var totalMessages = json2.content.keywords.length;
+                     //console.log("sdfsdf" + totalMessages);
+                     var keywords = ""
+
+                     for ( var i = 0; i < totalMessages; i++)
+                       {
+                       if (JSON.stringify(json2.content.keywords[i].keyword).indexOf(' ')>=0)
+                       {
+
+                       }
+                       else{
+                         var s = JSON.stringify(json2.content.keywords[i].keyword);
+                         keywords += s.slice(1,s.length-1) + "%20AND%20"
+                       }
+
+                     }
+
+                     var lastIndex = keywords.lastIndexOf("%20AND%");
+
+                     keywords = keywords.substring(0, lastIndex);
+                     console.log(keywords);
+                     xhr3.open("GET", "https://newsapi.org/v2/everything?q="+keywords+"&from="+JSON.stringify(json2.date)+"&sortBy=publishedAt&apiKey=b86805fe9ad8438696f50c72993d0fd8");
+                     console.log('aaaaaajl');
+                     console.log("sd" + "https://newsapi.org/v2/everything?q="+keywords+"&from="+JSON.stringify(json2.date)+"&sortBy=publishedAt&apiKey=b86805fe9ad8438696f50c72993d0fd8");
+                     xhr3.onreadystatechange = function () {
+                         if (xhr3.readyState == 4 && xhr3.status == 200) {
+                           var json3 = JSON.parse(xhr3.responseText);
+
+                           console.log("hi"+JSON.stringify(json3.totalResults));
+                         }
+                       }
+                     xhr3.send();
+
+                     if (sourceDiv.innerHTML == '') {
+                         sourceDiv.innerHTML = '<p>Source: ' + json2.domain.domain + '<br/></p>';
                     }
-                    sourceDiv.innerHTML += '<p>Category: ' + json2.domain.category + '</p>';
+                     sourceDiv.innerHTML += '<p>Category: ' + json2.domain.category + '</p>';
 
-                    spanThree.innerHTML += JSON.stringify(json2.content.decision);
-                    if(parseFloat(JSON.stringify(json2.content.score))<0.25) {
-                      spanThree.setAttribute("style", "color: green");
-                    } else if(parseFloat(JSON.stringify(json2.content.score))>0.7) {
-                      spanThree.setAttribute("style", "color: green");
-                    } else {
-                      spanThree.setAttribute("style", "color: yellow");
-                    }
-                    console.log(spanThree.classList);
-                    spanTwo.innerHTML += " Score: ";
+                     spanThree.innerHTML += JSON.stringify(json2.content.decision);
+                     if(parseFloat(JSON.stringify(json2.content.score))<0.25) {
+                       spanThree.setAttribute("style", "color: green");
+                     } else if(parseFloat(JSON.stringify(json2.content.score))>0.7) {
+                       spanThree.setAttribute("style", "color: green");
+                     } else {
+                       spanThree.setAttribute("style", "color: yellow");
+                     }
+                     console.log(spanThree.classList);
+                     spanTwo.innerHTML += " Score: ";
 
-                    div.innerHTML += Math.round(parseFloat(JSON.stringify(json2.content.score))*100)/100;
-
-                }
+                     div.innerHTML += Math.round(parseFloat(JSON.stringify(json2.content.score))*100)/100;
+                     //var data = JSON.stringify({'url':window.location.href,'title': json.title,'content': json.body});
+                     //xhr2.send(data);
+                  }
             }
+            var data = JSON.stringify({'url':window.location.href,'title': json.title,'content': json.body});
+            xhr2.send(data);
         }
-        var data = JSON.stringify({'url':window.location.href,'title': json.title,'content': json.body});
-        xhr2.send(data);
     }
-xhr.send();
+
+   xhr.send();
+
+   div.appendChild(sourceDiv);
+   div.appendChild(spanOne);
+   div.appendChild(spanThree);
+   div.appendChild(spanTwo);
+});
