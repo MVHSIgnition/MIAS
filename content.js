@@ -151,8 +151,8 @@ xhr = new XMLHttpRequest();
 xhr2 = new XMLHttpRequest();
 xhr3 = new XMLHttpRequest();
 var url = "http://localhost:8080/fakebox/check";
-console.log("hiiiiiiiiii");
-
+//console.log("hiiiiiiiiii");
+altDiv.innerHTML += '<p>working</p>'
 getTabSource(window.location.href, function(source, bias) {
   //console.log(source, bias);
   if (source) {
@@ -208,10 +208,11 @@ getTabSource(window.location.href, function(source, bias) {
             if (xhr3.readyState == 4 && xhr3.status == 200) {
               var json3 = JSON.parse(xhr3.responseText);
 
-              for (var i = 0; i < json3.totalResults; i++) {
+              for (var i = 0; i < json3.totalResults-1; i++) {
                 console.log("s,",JSON.stringify(json3.articles[i].url))
-                s = JSON.stringify(json3.articles[i].url);
+                s = json3.articles[i].url;
                 altDiv.innerHTML += '<p><a href="'+s+'">Article '+i+'</a></p>';
+
               }
               console.log("hi"+JSON.stringify(json3.totalResults));
 
@@ -235,7 +236,7 @@ getTabSource(window.location.href, function(source, bias) {
           console.log(spanThree.classList);
           spanTwo.innerHTML += " Score: ";
 
-          div.innerHTML += Math.round(parseFloat(JSON.stringify(json2.content.score))*100)/100;
+          spanTwo.innerHTML += Math.round(parseFloat(JSON.stringify(json2.content.score))*100)/100;
           //var data = JSON.stringify({'url':window.location.href,'title': json.title,'content': json.body});
           //xhr2.send(data);
         }
