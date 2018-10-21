@@ -32,28 +32,34 @@ var spanTwo = document.createElement('span');
 var spanThree = document.createElement('span');
 var spanFour = document.createElement('span');
 var drag = document.createElement('div');
-drag.setAttribute('style', 'width: 30px; height: 30px; background-color: black; position: fixed; right: 0px; top: 40%;');
+var img = document.createElement('img');
+img.setAttribute('src', 'https://dumielauxepices.net/sites/default/files/drawn-arrow-transparent-background-510459-6225372.png');
+img.setAttribute('style', 'width: 40px; height: 20px; background-color: black; position: fixed; right: 100px; top: 40%; opacity: 0.5;');
+
+drag.setAttribute('style', 'width: 40px; height: 20px; background-color: black; position: fixed; right: 0px; top: 40%; opacity: 0.5;');
 var shown = false;
 drag.onclick = function() {
   if(!shown){
-    div.setAttribute('style', 'animation-name: show; animation-duration: 1s;');
-    setTimeout(function() {
+    //div.setAttribute('style', 'animation-name: show; animation-duration: 1s;');
+    //setTimeout(function() {
+      div.setAttribute('style', 'display: block');
       div.setAttribute('right', '0px');
       
-      console.log("hi");
-    }, 1000);
+    //}, 1000);
     //drag.setAttribute('style', 'animation-name: upDrag; animation-duration: 1s;');
     shown = true;
   } else {
-    div.setAttribute('style', 'animation-name: hide; animation-duration: 1s;');
-    setTimeout(function() {
+    //div.setAttribute('style', 'animation-name: hide; animation-duration: 1s;');
+    //setTimeout(function() {
+      div.setAttribute('style', 'display: none');
       div.setAttribute('right', '-200px');
-    }, 1000);
+    //}, 1000);
     //drag.setAttribute('style', 'animation-name: downDrag; animation-duration: 1s;');
     shown = false;
   }
+  console.log('hi');
 }
-drag.setAttribute('id', 'drag');
+//drag.setAttribute('id', 'drag');
 
 var callback = function(error, data, response) {
   if (error) {
@@ -72,10 +78,12 @@ div.setAttribute('id', 'main-div');
 if (document.body.firstChild){
     document.body.insertBefore(div, document.body.firstChild);
     document.body.insertBefore(drag, document.body.firstChild);
+    document.body.insertBefore(img, document.body.firstChild);
 }
 else{
     document.body.appendChild(div);
     document.body.appendChild(drag);
+    document.body.appendChild(img);
 }
 
 var getHostName = function (url) {
