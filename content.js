@@ -1,5 +1,5 @@
 var script = document.createElement('script');
-script.src = '//code.jquery.com/jquery-1.11.0.min.js';
+script.src = '//https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
 
 var div = document.createElement('div');
@@ -8,17 +8,39 @@ var spanTwo = document.createElement('span');
 var spanThree = document.createElement('span');
 var spanFour = document.createElement('span');
 var drag = document.createElement('div');
-
-document.getElementByTagName("body")[0].appendChild(img);
-img.setAttribute('style', 'position: fixed; right: 0px; top: 50%;');
+drag.setAttribute('style', 'width: 30px; height: 30px; background-color: black; position: fixed; right: 0px; top: 40%;');
+var shown = false;
+drag.onclick = function() {
+  if(!shown){
+    div.setAttribute('style', 'animation-name: show; animation-duration: 1s;');
+    setTimeout(function() {
+      div.setAttribute('right', '0px');
+      
+      console.log("hi");
+    }, 1000);
+    //drag.setAttribute('style', 'animation-name: upDrag; animation-duration: 1s;');
+    shown = true;
+  } else {
+    div.setAttribute('style', 'animation-name: hide; animation-duration: 1s;');
+    setTimeout(function() {
+      div.setAttribute('right', '-200px');
+    }, 1000);
+    //drag.setAttribute('style', 'animation-name: downDrag; animation-duration: 1s;');
+    shown = false;
+  }
+}
+drag.setAttribute('id', 'drag');
 
 div.classList.add('mias_container');
+div.setAttribute('id', 'main-div');
 
 if (document.body.firstChild){
     document.body.insertBefore(div, document.body.firstChild);
+    document.body.insertBefore(drag, document.body.firstChild);
 }
 else{
     document.body.appendChild(div);
+    document.body.appendChild(drag);
 }
 
 var getHostName = function (url) {
@@ -151,3 +173,4 @@ xhr.onreadystatechange = function () {
     }
 }
 xhr.send();
+
