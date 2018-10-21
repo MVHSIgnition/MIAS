@@ -195,6 +195,7 @@ getTabSource(window.location.href, function(source, bias) {
           xhr3.open("GET", "https://newsapi.org/v2/everything?q="+keywords+"&from="+JSON.stringify(json2.date)+"&sortBy=publishedAt&apiKey=b86805fe9ad8438696f50c72993d0fd8");
           //console.log('aaaaaajl');
           //console.log("sd" + "https://newsapi.org/v2/everything?q="+keywords+"&from="+JSON.stringify(json2.date)+"&sortBy=publishedAt&apiKey=b86805fe9ad8438696f50c72993d0fd8");
+          xhr3.setRequestHeader("Content-type", "application/json");
           xhr3.onreadystatechange = function () {
             if (xhr3.readyState == 4 && xhr3.status == 200) {
               var json3 = JSON.parse(xhr3.responseText);
