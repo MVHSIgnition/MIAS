@@ -6,15 +6,14 @@
 	clear: both;
 	bottom: 0;
 	padding: 5px;
-	margin: 2px;
+	margin: 5px;
 	border: 1px solid transparent;
 	background-color: #000000;
 	color: #ffffff;
 	opacity: .75;
 	z-index: 1000;
 	bottom: 50%;
-	right: 0px;
-	display: none;
+	right: -200px;
 }
 
 .low {
@@ -28,7 +27,7 @@
 .high {
 	font-color: red;
 }
-/*
+
 @keyframes show {
 	0%   {right:-200px;}
     100% {right:0px;}
@@ -39,7 +38,7 @@
 	100%   {right:-200px;}
 }
 
-@keyframes downDrag {
+@keyframes downDrap {
 	0%   {top:50%;}
     100% {top:40%;}
 }
@@ -47,4 +46,4 @@
 @keyframes upDrag {
     0% {top:40%;}
 	100%   {top:50%;}
-}*/
+}
