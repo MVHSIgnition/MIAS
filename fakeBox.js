@@ -1,3 +1,38 @@
+var AylienNewsApi = require('aylien-news-api');
+
+var apiInstance = new AylienNewsApi.DefaultApi();
+
+// Configure API key authorization: app_id
+var app_id = apiInstance.apiClient.authentications['app_id'];
+app_id.apiKey = "f2ceabc2";
+
+// Configure API key authorization: app_key
+var app_key = apiInstance.apiClient.authentications['app_key'];
+app_key.apiKey = "4aa0715bddaf684e505187c09ed93777";
+
+var opts = {
+  'title': 'trump',
+  'sortBy': 'social_shares_count.facebook',
+  'language': ['en'],
+  'publishedAtStart': 'NOW-7DAYS',
+  'publishedAtEnd': 'NOW',
+  'entitiesBodyLinksDbpedia': [
+    'http://dbpedia.org/resource/Donald_Trump',
+    'http://dbpedia.org/resource/Hillary_Rodham_Clinton'
+  ]
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Rate limit headers are as follows:');
+    console.log('X-RateLimit-Limit:', response.headers['x-ratelimit-limit']);
+    console.log('X-RateLimit-Remaining:', response.headers['x-ratelimit-remaining']);
+    console.log('X-RateLimit-Reset:', response.headers['x-ratelimit-reset']);
+  }
+};
+apiInstance.listStories(opts, callback);
 xhr = new XMLHttpRequest();
 xhr2 = new XMLHttpRequest();
 xhr3 = new XMLHttpRequest();
