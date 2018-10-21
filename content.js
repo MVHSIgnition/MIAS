@@ -34,6 +34,7 @@ var spanFour = document.createElement('span');
 var drag = document.createElement('div');
 var sourceDiv = document.createElement('div');
 var altDiv = document.createElement('div');
+var pulloutDiv = document.createElement('div');
 
 
 var callback = function(error, data, response) {
@@ -49,15 +50,22 @@ var callback = function(error, data, response) {
 
 div.classList.add('mias_container');
 div.setAttribute('id', 'main-div');
+div.innerHTML += '<a href="#mias_pullout">Erik PULLS</a>';
+
+pulloutDiv.id = 'mias_pullout';
+pulloutDiv.className = 'pullout';
+pulloutDiv.innerHTML = '<h1>LOOOOOOOL</h1>'
 
 if (document.body.firstChild){
   document.body.insertBefore(div, document.body.firstChild);
   document.body.insertBefore(drag, document.body.firstChild);
+  document.body.insertBefore(pulloutDiv, document.body.firstChild);
   //document.body.insertBefore(img, document.body.firstChild);
 }
 else{
   document.body.appendChild(div);
   document.body.appendChild(drag);
+  document.body.appendChild(pulloutDiv);
   //document.body.appendChild(img);
 }
 

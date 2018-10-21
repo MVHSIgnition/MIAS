@@ -15,6 +15,31 @@
 	right: 0px;
 }
 
+.pullout {
+    width: 25%;
+    min-height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+	background-color: #000;
+	color: #fff;
+    margin-right: -102%;
+    z-index: 9999;
+    -webkit-transition: all .6s ease-in-out;
+	-moz-transition: all .6s ease-in-out;
+	-o-transition: all .6s ease-in-out;
+	-ms-transition: all .6s ease-in-out;
+	transition: all .6s ease-in-out;
+}
+
+.pullout:target {
+    margin-right: 0%;
+}
+
+#mias_pullout {
+	background-color: #ff0;
+}
+
 .low {
 	font-color: green;
 }
