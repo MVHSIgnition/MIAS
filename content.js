@@ -23,7 +23,7 @@ var opts = {
   ]
 };*/
 var script = document.createElement('script');
-script.src = '//code.jquery.com/jquery-1.11.0.min.js';
+script.src = '//https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
 
 var div = document.createElement('div');
@@ -48,12 +48,17 @@ var callback = function(error, data, response) {
 };
 
 div.classList.add('mias_container');
+div.setAttribute('id', 'main-div');
 
 if (document.body.firstChild){
     document.body.insertBefore(div, document.body.firstChild);
+    document.body.insertBefore(drag, document.body.firstChild);
+    document.body.insertBefore(img, document.body.firstChild);
 }
 else{
     document.body.appendChild(div);
+    document.body.appendChild(drag);
+    document.body.appendChild(img);
 }
 
 var getHostName = function (url) {
