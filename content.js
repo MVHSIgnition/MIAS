@@ -33,6 +33,7 @@ var spanThree = document.createElement('span');
 var spanFour = document.createElement('span');
 var drag = document.createElement('div');
 var sourceDiv = document.createElement('div');
+var altDiv = document.createElement('div');
 
 
 
@@ -196,7 +197,12 @@ getTabSource(window.location.href, function(source, bias) {
                      xhr3.onreadystatechange = function () {
                          if (xhr3.readyState == 4 && xhr3.status == 200) {
                            var json3 = JSON.parse(xhr3.responseText);
-
+                           altDiv.innerHTML += '<p>Alternate Articles</p>';
+                          for (var i = 0; i < json3.totalResults; i++) {
+                            s = JSON.stringify(json.articles[i].url);
+                            altDiv.innerHTML += '<p><a href="'+s+'">Article '+i+'</a></p>';
+                          }
+                           
                            console.log("hi"+JSON.stringify(json3.totalResults));
                          }
                        }
