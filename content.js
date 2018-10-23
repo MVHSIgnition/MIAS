@@ -168,16 +168,17 @@ xhr2 = new XMLHttpRequest();
 xhr3 = new XMLHttpRequest();
 var url = "http://localhost:8080/fakebox/check";
 //console.log("hiiiiiiiiii");
-altDiv.innerHTML += '<p>working</p>'
+
 getTabSource(window.location.href, function(source, bias) {
   //console.log(source, bias);
   if (source) {
     sourceDiv.innerHTML = '<p>Source: <a href="' + source.homepage + '">' + source.name + '</a><br/>Bias: ' + bias.name + '</p>';
+    var currentBias = bias.name;
   }
 
   spanOne.setAttribute("style", "font-weight: bold;");
   spanTwo.setAttribute("style", "font-weight: bold;");
-  spanOne.innerHTML += 'Article bias: ';
+  //spanOne.innerHTML += 'Article bias: ';
 
 
   xhr.open("GET", 'https://document-parser-api.lateral.io/?url='+window.location.href, true);
@@ -216,21 +217,44 @@ getTabSource(window.location.href, function(source, bias) {
 
           keywords = keywords.substring(0, lastIndex);
           //console.log(keywords);
-          xhr3.open("GET", "https://newsapi.org/v2/everything?q="+keywords+"&from="+JSON.stringify(json2.date)+"&sortBy=publishedAt&apiKey=b86805fe9ad8438696f50c72993d0fd8");
+          xhr3.open("GET", "https://newsapi.org/v2/everything?q="+keywords+"&from="+JSON.stringify(json2.date)+"&sortBy=relevancy&apiKey=b86805fe9ad8438696f50c72993d0fd8");
+
           //console.log('aaaaaajl');
           //console.log("sd" + "https://newsapi.org/v2/everything?q="+keywords+"&from="+JSON.stringify(json2.date)+"&sortBy=publishedAt&apiKey=b86805fe9ad8438696f50c72993d0fd8");
           xhr3.setRequestHeader("Content-type", "application/json");
           xhr3.onreadystatechange = function () {
             if (xhr3.readyState == 4 && xhr3.status == 200) {
               var json3 = JSON.parse(xhr3.responseText);
-
-              for (var i = 0; i < json3.totalResults-1; i++) {
-                console.log("s,",JSON.stringify(json3.articles[i].url))
+              //console.log(JSON.stringify(json3));
+              var added = false;
+              var i = 0;
+              while(!added) {
+                //console.log(i);
+                //console.log("s,",JSON.stringify(json3.articles[i].source.name) + "," + bias)
+                //console.log(json3.totalResults)
                 s = json3.articles[i].url;
-                altDiv.innerHTML += '<p><a href="'+s+'">Article '+i+'</a></p>';
+
+
+                //a = json3.articles[i].source.name;
+                getTabSource(s, function(source, bias) {
+                  console.log(currentBias + " " + json3.articles[i].source.name + " "  +bias);
+                  if(currentBias === "Right Bias" || currentBias === "Right Center Bias"){
+                    if(bias === "Center" || bias === "Left Center Bias" || bias === "Left Bias"){
+                      altDiv.innerHTML += '<p><a href="'+s+'">Article from '+json3.articles[i].source.name+'</a></p>';
+                      added = true;
+                    }
+                  }
+                  if(currentBias === "Left Bias" || currentBias === "Left Center Bias"){
+                    if(bias === "Center" || bias === "Right Center Bias" || bias === "Right Bias"){
+                      altDiv.innerHTML += '<p><a href="'+s+'">Article from '+json3.articles[i].source.name+'</a></p>';
+                      added = true;
+                    }
+                  }
+                });
+
 
               }
-              console.log("hi"+JSON.stringify(json3.totalResults));
+              //console.log("hi"+JSON.stringify(json3.totalResults));
 
             }
           }
