@@ -48,13 +48,29 @@ var callback = function(error, data, response) {
   }
 };
 
+function toggleAnimation() {
+  if(pulloutDiv.className == 'pullout') {
+    pulloutDiv.className = 'pullin';
+    div.setAttribute('style', 'display: none;');
+  } else if(pulloutDiv.className == 'pullin') {
+    pulloutDiv.className = 'pullout';
+    div.setAttribute('style', 'display: block;');
+  }
+  console.log("hiii");
+}
+
 div.classList.add('mias_container');
 div.setAttribute('id', 'main-div');
-div.innerHTML += '<a href="#mias_pullout">Erik PULLS</a>';
+div.innerHTML += '<a href="#mias_pullout" onclick="toggleAnimation()">Pull out</a>';
 
 pulloutDiv.id = 'mias_pullout';
 pulloutDiv.className = 'pullout';
-pulloutDiv.innerHTML = '<h1>LOOOOOOOL</h1>'
+pulloutDiv.innerHTML = '<h1>Alternate Articles</h1>'
+var pullin = document.createElement('p');
+pullin.innerHTML = '<a href="#mias_pullout">Pull In</a>';
+pullin.setAttribute('onclick', 'toggleAnimation()');
+pullin.setAttribute('style', 'position: absolution; right: 5px; bottom: 5px;');
+pulloutDiv.appendChild(pullin);
 
 if (document.body.firstChild){
   document.body.insertBefore(div, document.body.firstChild);
